@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Random;
-
+//stuff needs some tweaking
+//everything works Ill just try to make
+//the shortened url to work (:
 @Service
 public class UrlService {
     @Autowired
