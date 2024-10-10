@@ -1,40 +1,30 @@
 package com.example.urlshortener.service;
 
-import com.example.urlshortener.model.Url;
+import com.example.urlshortener.model.UrlEntity;
 import com.example.urlshortener.repository.UrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.Random;
-//stuff needs some tweaking
-//everything works Ill just try to make
-//the shortened url to work (:
+import java.util.UUID;
+
 @Service
 public class UrlService {
+
     @Autowired
     private UrlRepository urlRepository;
 
+    // Shortens the given URL and stores it in the database
     public String shortenUrl(String originalUrl) {
-        String shortUrl = generateShortUrl();
-        Url url = new Url();
-        url.setOriginalUrl(originalUrl);
-        url.setShortUrl(shortUrl);
-        urlRepository.save(url);
+        String shortUrl = UUID.randomUUID().toString().substring(0, 6); // Generate a random short code
+        UrlEntity urlEntity = new UrlEntity(shortUrl, originalUrl);
+        urlRepository.save(urlEntity);
         return shortUrl;
     }
 
-    public Optional<Url> getOriginalUrl(String shortUrl) {
-        return urlRepository.findByShortUrl(shortUrl);
-    }
-
-    private String generateShortUrl() {
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        StringBuilder shortUrl = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < 6; i++) {
-            shortUrl.append(chars.charAt(random.nextInt(chars.length())));
-        }
-        return shortUrl.toString();
+    // Fetches the original URL from the shortened URL
+    public String getOriginalUrl(String shortUrl) {
+        UrlEntity urlEntity = urlRepository.findByShortUrl(shortUrl);
+        return (urlEntity != null) ? urlEntity.getOriginalUrl() : null;
     }
 }
+
