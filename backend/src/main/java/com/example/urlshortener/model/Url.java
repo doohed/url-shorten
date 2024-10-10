@@ -10,10 +10,8 @@ public class Url {
     private String originalUrl;
     private String shortUrl;
 
-    // Default constructor
     public Url() {}
 
-    // Getters and Setters
     public String getId() {
         return id;
     }

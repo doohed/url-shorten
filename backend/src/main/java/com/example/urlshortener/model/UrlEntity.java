@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "urls")
 public class UrlEntity {
-
     @Id
     private String id;
     private String shortUrl;
@@ -14,6 +13,14 @@ public class UrlEntity {
     public UrlEntity(String shortUrl, String originalUrl) {
         this.shortUrl = shortUrl;
         this.originalUrl = originalUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getShortUrl() {
@@ -32,3 +39,4 @@ public class UrlEntity {
         this.originalUrl = originalUrl;
     }
 }
+

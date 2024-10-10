@@ -40,11 +40,7 @@ function UrlShortener() {
                 />
                 <button type="submit">Shorten</button>
             </form>
-            {shortUrl && (
-                <p>
-                    Shortened URL: <a href={shortUrl}>{shortUrl}</a>
-                </p>
-            )}
+            {shortUrl && <p>Short URL: <a href={shortUrl}>{shortUrl}</a></p>}
         </div>
     );
 }
